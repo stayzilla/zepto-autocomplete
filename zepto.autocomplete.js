@@ -16,37 +16,37 @@
             searchTextField.bind("paste keyup", $.proxy(ZeptoAutoComplete._handleSearch, this));
         },
         clearAutoCompleteResults: function () {
-            $('.auto-complete-result').html('');
-            $('.auto-complete-result').hide();
+            var resultContainer = $('.auto-complete-result');
+            resultContainer.html('');
+            resultContainer.hide();
         },
         autoCompleteLocal: function (limit, data) {
             ZeptoAutoComplete.init(limit);
             var searchTextField = $('.autocomplete-input');
             searchTextField.bind("input paste keyup", function () {
                 var message = searchTextField.val();
-                if (ZeptoAutoComplete._isWithinLimit(message)) {
-                    ZeptoAutoComplete._successHandler(data.filter(function (i) {
-                        return i.indexOf(message) > -1;
-                    }));
-                } else {
+                if (!ZeptoAutoComplete._isWithinLimit(message)) {
                     ZeptoAutoComplete.clearAutoCompleteResults();
+                    return;
                 }
+                ZeptoAutoComplete._successHandler(data.filter(function (i) {
+                    return i.indexOf(message) > -1;
+                }));
             });
         },
         _handleSearch: function (evt) {
             var message = $(evt.srcElement).val();
             var url = ZeptoAutoComplete.autoCompleteURL + '?' + ZeptoAutoComplete.searchTerm + '=' + message;
-            var withinLimit = ZeptoAutoComplete._isWithinLimit(message);
-            if (withinLimit) {
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    dataType: 'json',
-                    success: ZeptoAutoComplete._successHandler
-                });
-            } else {
+            if (!ZeptoAutoComplete._isWithinLimit(message)) {
                 ZeptoAutoComplete.clearAutoCompleteResults();
+                return;
             }
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                success: ZeptoAutoComplete._successHandler
+            });
         },
         _isWithinLimit: function (message) {
             return message !== undefined && message.length > ZeptoAutoComplete.limit;
@@ -66,4 +66,5 @@
         }
     };
     $.extend($.fn, ZeptoAutoComplete);
-})(Zepto);
+})
+    (Zepto);
