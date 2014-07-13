@@ -1,0 +1,33 @@
+.auto-complete-result {
+    background: #ffffff;
+    border-radius: 3px;
+    color: #4C4C4C;
+    display: none;
+    font-size: 100%;
+    height: auto;
+    margin-top: 2px;
+    position: absolute;
+    width: auto;
+    z-index: 15;
+}
+
+.auto-complete-result ol {
+    list-style: none outside none;
+    margin-left: 0;
+    margin-top: 2px;
+    padding: 0;
+    width: 100%;
+}
+
+.auto-complete-result li {
+    border-bottom: 1px solid #DCDCDC;
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    padding: 5px;
+    width: auto;
+}
+
+.auto-complete-result ol li:hover {
+    background: #22D0EB;
+}
