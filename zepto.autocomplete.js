@@ -10,30 +10,31 @@
             this.searchTerm = searchTextField.data('search-key');
             this.limit = limit;
         },
-        isValidDataSource: function (options) {
+        autocomplete: function (options) {
+            if (!ZeptoAutocomplete._isValidDataSource(options)) {
+                return;
+            }
+            if (ZeptoAutocomplete._isLocal(options)) {
+                ZeptoAutocomplete._initLocal(options.limit, options.data);
+                return;
+            }
+            if (ZeptoAutocomplete._isRemote(options)) {
+                ZeptoAutocomplete._initRemote(options.limit, options.data);
+            }
+        },
+        _isValidDataSource: function (options) {
             return typeof options !== "undefined" &&
                 typeof options.datasource !== "undefined" &&
                 options.datasource !== "" &&
                 options.datasource;
         },
-        autocomplete: function (options) {
-            if (!ZeptoAutocomplete.isValidDataSource(options)) {
-                return;
-            }
-            if (options.datasource === 'local') {
-                ZeptoAutocomplete.autoCompleteLocal(options.limit, options.data);
-                return;
-            }
-            if (options.datasource === 'remote') {
-                ZeptoAutocomplete.autoCompleteRemote(options.limit, options.data);
-            }
+        _isRemote: function (options) {
+            return options.datasource === 'remote';
         },
-        autoCompleteRemote: function (limit, autoCompleteURL) {
-            ZeptoAutocomplete.init(limit, autoCompleteURL);
-            var searchTextField = $('.autocomplete-input');
-            searchTextField.bind("keyup", $.proxy(ZeptoAutocomplete._handleSearch, this));
+        _isLocal: function (options) {
+            return options.datasource === 'local';
         },
-        autoCompleteLocal: function (limit, data) {
+        _initLocal: function (limit, data) {
             ZeptoAutocomplete.init(limit);
             var searchTextField = $('.autocomplete-input');
             searchTextField.bind("input paste keyup", function () {
@@ -46,6 +47,11 @@
                     return i.indexOf(message) > -1;
                 }));
             });
+        },
+        _initRemote: function (limit, autoCompleteURL) {
+            ZeptoAutocomplete.init(limit, autoCompleteURL);
+            var searchTextField = $('.autocomplete-input');
+            searchTextField.bind("keyup", $.proxy(ZeptoAutocomplete._handleSearch, this));
         },
         clearAutoCompleteResults: function () {
             var resultContainer = $('.auto-complete-result');
