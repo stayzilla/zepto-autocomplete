@@ -1,7 +1,7 @@
 ;
 (function ($) {
     var ZeptoAutoComplete = {
-        limit: 3,
+        limit: 2,
         autoCompleteURL: '',
         searchTerm: '',
         init: function (limit) {
@@ -13,7 +13,7 @@
         autoCompleteRemote: function (limit) {
             ZeptoAutoComplete.init(limit);
             var searchTextField = $('.autocomplete-input');
-            searchTextField.bind("paste keyup", $.proxy(ZeptoAutoComplete._handleSearch, this));
+            searchTextField.bind("keyup", $.proxy(ZeptoAutoComplete._handleSearch, this));
         },
         clearAutoCompleteResults: function () {
             var resultContainer = $('.auto-complete-result');
@@ -35,7 +35,7 @@
             });
         },
         _handleSearch: function (evt) {
-            var message = $(evt.srcElement).val();
+            var message = $('.autocomplete-input').val();
             var url = ZeptoAutoComplete.autoCompleteURL + '?' + ZeptoAutoComplete.searchTerm + '=' + message;
             if (!ZeptoAutoComplete._isWithinLimit(message)) {
                 ZeptoAutoComplete.clearAutoCompleteResults();
@@ -66,5 +66,4 @@
         }
     };
     $.extend($.fn, ZeptoAutoComplete);
-})
-    (Zepto);
+})(Zepto);
