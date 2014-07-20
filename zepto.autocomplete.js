@@ -29,10 +29,10 @@
                 options.datasource;
         },
         _isRemote: function (options) {
-            return options.datasource === 'remote';
+            return options.datasource === 'remote' && typeof options.data !== "undefined" && options.data;
         },
         _isLocal: function (options) {
-            return options.datasource === 'local';
+            return options.datasource === 'local' && typeof options.data !== "undefined" && $.isArray(options.data);
         },
         _initLocal: function (limit, data) {
             ZeptoAutocomplete.init(limit);
