@@ -56,7 +56,6 @@
         _handleSearch: function (evt) {
             var message = $('.autocomplete-input').val();
             var url = ZeptoAutocomplete.data + message;
-            console.log(url);
             if (!ZeptoAutocomplete._isWithinLimit(message)) {
                 ZeptoAutocomplete._clearResults();
                 return;
@@ -78,6 +77,11 @@
             });
             autocompleteHTML += "</ol>";
             resultContainer.html(autocompleteHTML);
+            $('.auto-complete-result li').on('click',function(evt){
+                var selectedValue = $(this).text();
+                $('.autocomplete-input').val(selectedValue);
+                ZeptoAutocomplete._clearResults();
+            });
             resultContainer.show();
         },
         _clearResults: function () {
