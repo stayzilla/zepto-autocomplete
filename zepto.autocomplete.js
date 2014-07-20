@@ -1,12 +1,15 @@
 ;
 (function ($) {
     var ZeptoAutocomplete = {
-        limit: 2,
-        data: '',
-        remoteTimeout: 3000,
         init: function (limit, data) {
             this.limit = limit;
             this.data = data;
+            this.remoteTimeout = 3000;
+        },
+        _clear: function () {
+            this.limit = 2;
+            this.data = '';
+            this.remoteTimeout = 3000;
         },
         autocomplete: function (options) {
             if (!this._isDataSourceDefined(options)) {
@@ -18,7 +21,9 @@
             }
             if (this._isRemote(options)) {
                 this._initRemote(options.limit, options.data);
+                return;
             }
+            this._clear();
         },
         _isDataSourceDefined: function (options) {
             return typeof options !== "undefined" &&
