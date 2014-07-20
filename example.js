@@ -3,7 +3,7 @@ $(document).ready(function () {
     var remoteOptions = {
       limit : 2,
       datasource : 'remote',
-      data : 'example.json'
+      data : 'example.json?keyword='
     };
     $.fn.autocomplete(remoteOptions);
     var autocompleteData = ["london", "paris", "stockholm", "delhi", "madrid", "madurai", "madras"];
