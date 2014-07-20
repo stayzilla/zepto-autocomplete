@@ -3,21 +3,21 @@
     var ZeptoAutocomplete = {
         limit: 2,
         data: '',
-        remoteTimeout : 3000,
+        remoteTimeout: 3000,
         init: function (limit, data) {
             this.limit = limit;
             this.data = data;
         },
         autocomplete: function (options) {
-            if (!ZeptoAutocomplete._isDataSourceDefined(options)) {
+            if (!this._isDataSourceDefined(options)) {
                 return;
             }
-            if (ZeptoAutocomplete._isLocal(options)) {
-                ZeptoAutocomplete._initLocal(options.limit, options.data);
+            if (this._isLocal(options)) {
+                this._initLocal(options.limit, options.data);
                 return;
             }
-            if (ZeptoAutocomplete._isRemote(options)) {
-                ZeptoAutocomplete._initRemote(options.limit, options.data);
+            if (this._isRemote(options)) {
+                this._initRemote(options.limit, options.data);
             }
         },
         _isDataSourceDefined: function (options) {
@@ -33,43 +33,45 @@
             return options.datasource === 'local' && typeof options.data !== "undefined" && $.isArray(options.data);
         },
         _initLocal: function (limit, data) {
-            ZeptoAutocomplete.init(limit, data);
+            this.init(limit, data);
             var searchTextField = $('.autocomplete-input');
-            searchTextField.bind("input paste keyup", function () {
+            var _this = this;
+            searchTextField.bind("input paste keyup", $.proxy(function () {
                 var message = searchTextField.val();
-                if (!ZeptoAutocomplete._isWithinLimit(message)) {
-                    ZeptoAutocomplete._clearResults();
+                if (!this._isWithinLimit(message)) {
+                    this._clearResults();
                     return;
                 }
-                ZeptoAutocomplete._successHandler(data.filter(function (i) {
+                this._successHandler(data.filter(function (i) {
                     return i.indexOf(message) > -1;
                 }));
-            });
+            }, _this));
         },
         _initRemote: function (limit, data) {
-            ZeptoAutocomplete.init(limit, data);
+            this.init(limit, data);
             var searchTextField = $('.autocomplete-input');
-            searchTextField.bind("keyup", $.proxy(ZeptoAutocomplete._handleSearch, this));
+            var _this = this;
+            searchTextField.bind("keyup", $.proxy(this._handleSearch, _this));
         },
         _isWithinLimit: function (message) {
-            return message !== undefined && message.length > ZeptoAutocomplete.limit;
+            return message !== undefined && message.length > this.limit;
         },
         _handleSearch: function (evt) {
             var message = $('.autocomplete-input').val();
-            var url = ZeptoAutocomplete.data + message;
-            if (!ZeptoAutocomplete._isWithinLimit(message)) {
-                ZeptoAutocomplete._clearResults();
+            var url = this.data + message;
+            if (!this._isWithinLimit(message)) {
+                this._clearResults();
                 return;
             }
             $.ajax({
                 type: 'GET',
                 url: url,
                 dataType: 'json',
-                success: ZeptoAutocomplete._successHandler,
+                success: $.proxy(this._successHandler, this),
                 error: function (err) {
                     alert('Request failed to load suggestions.');
                 },
-                timeout: ZeptoAutocomplete.remoteTimeout
+                timeout: this.remoteTimeout
             });
         },
         _successHandler: function (data) {
@@ -82,10 +84,11 @@
             });
             autocompleteHTML += "</ol>";
             resultContainer.html(autocompleteHTML);
+            var _this = this;
             $('.auto-complete-result li').on('click', function (evt) {
                 var selectedValue = $(this).text();
                 $('.autocomplete-input').val(selectedValue);
-                ZeptoAutocomplete._clearResults();
+                _this._clearResults();
             });
             resultContainer.show();
         },
@@ -96,4 +99,5 @@
         }
     };
     $.extend($.fn, ZeptoAutocomplete);
+    $.autocomplete = $.fn.autocomplete;
 })(Zepto);
