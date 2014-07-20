@@ -1,55 +1,73 @@
 ;
 (function ($) {
-    var ZeptoAutoComplete = {
+    var ZeptoAutocomplete = {
         limit: 2,
         autoCompleteURL: '',
         searchTerm: '',
-        init: function (limit) {
+        init: function (limit, autoCompleteURL) {
             var searchTextField = $('.autocomplete-input');
-            this.autoCompleteURL = searchTextField.data('source');
+            this.autoCompleteURL = autoCompleteURL;
             this.searchTerm = searchTextField.data('search-key');
             this.limit = limit;
         },
-        autoCompleteRemote: function (limit) {
-            ZeptoAutoComplete.init(limit);
+        isValidDataSource: function (options) {
+            return typeof options !== "undefined" &&
+                typeof options.datasource !== "undefined" &&
+                options.datasource !== "" &&
+                options.datasource;
+        },
+        autocomplete: function (options) {
+            if (!ZeptoAutocomplete.isValidDataSource(options)) {
+                return;
+            }
+            if (options.datasource === 'local') {
+                ZeptoAutocomplete.autoCompleteLocal(options.limit, options.data);
+                return;
+            }
+            if (options.datasource === 'remote') {
+                ZeptoAutocomplete.autoCompleteRemote(options.limit, options.data);
+            }
+        },
+        autoCompleteRemote: function (limit, autoCompleteURL) {
+            ZeptoAutocomplete.init(limit, autoCompleteURL);
             var searchTextField = $('.autocomplete-input');
-            searchTextField.bind("keyup", $.proxy(ZeptoAutoComplete._handleSearch, this));
+            searchTextField.bind("keyup", $.proxy(ZeptoAutocomplete._handleSearch, this));
+        },
+        autoCompleteLocal: function (limit, data) {
+            ZeptoAutocomplete.init(limit);
+            var searchTextField = $('.autocomplete-input');
+            searchTextField.bind("input paste keyup", function () {
+                var message = searchTextField.val();
+                if (!ZeptoAutocomplete._isWithinLimit(message)) {
+                    ZeptoAutocomplete.clearAutoCompleteResults();
+                    return;
+                }
+                ZeptoAutocomplete._successHandler(data.filter(function (i) {
+                    return i.indexOf(message) > -1;
+                }));
+            });
         },
         clearAutoCompleteResults: function () {
             var resultContainer = $('.auto-complete-result');
             resultContainer.html('');
             resultContainer.hide();
         },
-        autoCompleteLocal: function (limit, data) {
-            ZeptoAutoComplete.init(limit);
-            var searchTextField = $('.autocomplete-input');
-            searchTextField.bind("input paste keyup", function () {
-                var message = searchTextField.val();
-                if (!ZeptoAutoComplete._isWithinLimit(message)) {
-                    ZeptoAutoComplete.clearAutoCompleteResults();
-                    return;
-                }
-                ZeptoAutoComplete._successHandler(data.filter(function (i) {
-                    return i.indexOf(message) > -1;
-                }));
-            });
-        },
         _handleSearch: function (evt) {
             var message = $('.autocomplete-input').val();
-            var url = ZeptoAutoComplete.autoCompleteURL + '?' + ZeptoAutoComplete.searchTerm + '=' + message;
-            if (!ZeptoAutoComplete._isWithinLimit(message)) {
-                ZeptoAutoComplete.clearAutoCompleteResults();
+            var url = ZeptoAutocomplete.autoCompleteURL + '?' + ZeptoAutocomplete.searchTerm + '=' + message;
+            if (!ZeptoAutocomplete._isWithinLimit(message)) {
+                ZeptoAutocomplete.clearAutoCompleteResults();
                 return;
             }
             $.ajax({
                 type: 'GET',
                 url: url,
                 dataType: 'json',
-                success: ZeptoAutoComplete._successHandler
+                success: ZeptoAutocomplete._successHandler
             });
         },
         _isWithinLimit: function (message) {
-            return message !== undefined && message.length > ZeptoAutoComplete.limit;
+            return message !== undefined && message.length > ZeptoAutocomplete.limit;
         },
         _successHandler: function (data) {
             if (data === undefined && data.length <= 0)
@@ -65,5 +83,5 @@
             resultContainer.show();
         }
     };
-    $.extend($.fn, ZeptoAutoComplete);
+    $.extend($.fn, ZeptoAutocomplete);
 })(Zepto);
