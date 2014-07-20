@@ -3,6 +3,7 @@
     var ZeptoAutocomplete = {
         limit: 2,
         data: '',
+        remoteTimeout : 3000,
         init: function (limit, data) {
             this.limit = limit;
             this.data = data;
@@ -64,7 +65,11 @@
                 type: 'GET',
                 url: url,
                 dataType: 'json',
-                success: ZeptoAutocomplete._successHandler
+                success: ZeptoAutocomplete._successHandler,
+                error: function (err) {
+                    alert('Request failed to load suggestions.');
+                },
+                timeout: ZeptoAutocomplete.remoteTimeout
             });
         },
         _successHandler: function (data) {
@@ -77,7 +82,7 @@
             });
             autocompleteHTML += "</ol>";
             resultContainer.html(autocompleteHTML);
-            $('.auto-complete-result li').on('click',function(evt){
+            $('.auto-complete-result li').on('click', function (evt) {
                 var selectedValue = $(this).text();
                 $('.autocomplete-input').val(selectedValue);
                 ZeptoAutocomplete._clearResults();
