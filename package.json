@@ -1,0 +1,16 @@
+{
+    "name": "zepto.autocomplete",
+    "description": "light-weight autocomplete zepto plugin",
+    "keywords": ["zepto", "autocomplete", "light-weight"],
+    "version": "0.0.1",
+    "author" :"Sriram Iyengar <sriram@stayzilla.com>",
+    "main": "zepto.autocomplete.js",
+    "repository" :"https://github.com/nsriram/zepto.autocomplete",
+    "devDependencies":{
+        "grunt" :"latest",
+        "grunt-mocha": "~0.4.11",
+        "mocha": "~1.20.1",
+        "chai": "~1.9.1",
+        "zepto":"~0.0.4"
+    }
+}
