@@ -10,6 +10,6 @@ $(document).ready(function () {
         datasource: 'local',
         data: autocompleteData
     };
-    $.fn.autocomplete(remoteOptions);
-//    $.fn.autocomplete(localOptions);
+//    $.fn.autocomplete(remoteOptions);
+    $.fn.autocomplete(localOptions);
 });

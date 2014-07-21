@@ -3992,7 +3992,7 @@ var exports = module.exports = {};
  * test utility
  */
 
-exports.test = require('./test');
+exports.test = require('./.');
 
 /*!
  * type utility
