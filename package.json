@@ -12,6 +12,8 @@
         "mocha": "~1.20.1",
         "chai": "~1.9.1",
         "sinon" : "~1.10.3",
-        "zepto":"~0.0.4"
+        "zepto":"~0.0.4",
+        "grunt-contrib-jshint": "0.6.3",
+        "grunt-contrib-uglify": "0.1.2"
     }
 }

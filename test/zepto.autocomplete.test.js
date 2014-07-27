@@ -6,7 +6,8 @@ describe("ZeptoAutocomplete", function () {
             $ = sinon.stub(window, '$');
             proxySpy = sinon.spy($, 'proxy');
             bindSpy = sinon.spy();
-            mockSearchTextFieldSpy = {bind: bindSpy};
+            clickSpy = sinon.spy();
+            mockSearchTextFieldSpy = {bind: bindSpy,click:clickSpy};
             $.withArgs('.autocomplete-input').returns(mockSearchTextFieldSpy);
         });
 

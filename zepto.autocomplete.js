@@ -1,4 +1,9 @@
-;
+/*!
+ * ZeptoAutocomplete v0.0.1
+ * Sriram Narasimhan
+ * MIT license
+ * @preserve
+ */
 var ZeptoAutocomplete = {
     init: function (limit, data) {
         this.limit = limit;

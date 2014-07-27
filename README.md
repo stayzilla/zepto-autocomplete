@@ -1,8 +1,8 @@
 # Zepto Autocomplete Plugin
 
-## Autocomplete plugin for zepto.js
+## Autocomplete plugin for ZeptoJS
 
-Zepto Autocomplete library allows Zepto.js users to easily plugin 'autocomplete' functionality to their text boxes, by simply adding a class and initializing the plugin on page load.
+Zepto Autocomplete plugin is a micro js js library (few KBs) that allows ZeptoJS users to easily plugin 'autocomplete' functionality to their text boxes, by adding a class and initializing the plugin on page load.
 
 Datasource for the autocomplete can be a local javascript Array objecty or a remote GET request returning a JSON array. The text limit is customizable and all values can be passed on initialization. Styling for the results, can be customized by importing 3 styles.
 
