@@ -1,0 +1,42 @@
+body{
+    margin: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.navbar{
+    height: 40px;
+    width: 100%;
+    background-color: #252525;
+}
+.middle {
+    margin: 0;
+    height: 180px;
+    background-color: #3b2448;
+    width: 100%;
+    color: #ffffff;
+}
+.middle h1{
+    font-size: 96px;
+    text-align: center;
+    margin: 0;
+}
+.search-form {
+    padding: 5px 20%;
+    width: 60%;
+}
+.search-form .autocomplete-input{
+    font-size: 14px;
+    height: 30px;
+    width: 100%;
+}
+.search-form input{
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(120, 120, 120, 0.75) inset;
+    height: 30px;
+    width: 100%;
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+    .middle h1{
+        font-size: 48px;
+    }
+}
