@@ -51,12 +51,12 @@ var ZeptoAutocomplete = {
         return message !== undefined && message.length > this.limit;
     },
     _handleLocalSearch: function () {
-        var message = searchTextField.val();
+        var message = $('.autocomplete-input').val();
         if (!this._isWithinLimit(message)) {
             this._clearResults();
             return;
         }
-        this._successHandler(data.filter(function (i) {
+        this._successHandler(this.data.filter(function (i) {
             return i.indexOf(message) > -1;
         }));
     },
