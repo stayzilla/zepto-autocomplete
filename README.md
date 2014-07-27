@@ -9,11 +9,15 @@ Datasource for the autocomplete can be a local javascript Array objecty or a rem
 ## Examples
 
 ```bash
-# HTML file. Note : `autocomplete-input` is the expected style for the input field, that needs to auto-completed.
-<input type="text" class="autocomplete-input" placeholder="Type any 3 letters here ...">
+# HTML file containing the required DOM elements.
+# `autocomplete-input` and `autocomplete-result` are the 2 expected styles for input and output respectively.
+
+<input type="text" class="autocomplete-input">
+<div class="autocomplete-result"></div>
 
 # Initialize in javascript on page load with options.
 # Below example is for "Local Datastore"
+
     $(document).ready(function () {
       var autocompleteData = ["madras","london", "paris", "stockholm", "delhi", "madrid", "madurai"];
       var localOptions = {limit: 2, datasource: 'local', data: autocompleteData};
@@ -23,6 +27,7 @@ Datasource for the autocomplete can be a local javascript Array objecty or a rem
     }
 
 # Below example is for "Rocal Datastore"
+
     $(document).ready(function () {
       var remoteOptions = {limit: 2, datasource: 'remote', data: 'example.json?keyword='};
       $.fn.autocomplete(remoteOptions);

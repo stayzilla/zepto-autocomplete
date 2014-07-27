@@ -92,7 +92,7 @@ var ZeptoAutocomplete = {
     _successHandler: function (data) {
         if (data === undefined && data.length <= 0)
             return;
-        var resultContainer = $('.auto-complete-result');
+        var resultContainer = $('.autocomplete-result');
         var autocompleteHTML = "<ol>";
         $.map(data, function (listItem) {
             autocompleteHTML += "<li>" + listItem + "</li>";
@@ -100,7 +100,7 @@ var ZeptoAutocomplete = {
         autocompleteHTML += "</ol>";
         resultContainer.html(autocompleteHTML);
         var _this = this;
-        $('.auto-complete-result li').on('click', function (evt) {
+        $('.autocomplete-result li').on('click', function (evt) {
             var selectedValue = $(this).text();
             $('.autocomplete-input').val(selectedValue);
             _this._clearResults();
@@ -108,7 +108,7 @@ var ZeptoAutocomplete = {
         resultContainer.show();
     },
     _clearResults: function () {
-        var resultContainer = $('.auto-complete-result');
+        var resultContainer = $('.autocomplete-result');
         resultContainer.html('');
         resultContainer.hide();
     }

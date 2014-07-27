@@ -49,11 +49,11 @@ body {
     width: 100%;
 }
 
-.search-form .auto-complete-result {
+.search-form .autocomplete-result {
     width: 100%;
 }
 
-.search-form .auto-complete-result ol {
+.search-form .autocomplete-result ol {
     list-style: none outside none;
     margin-left: 0;
     margin-top: 2px;
@@ -61,7 +61,7 @@ body {
     width: 100%;
 }
 
-.search-form .auto-complete-result li {
+.search-form .autocomplete-result li {
     border-bottom: 1px solid lightgray;
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray;
@@ -73,7 +73,7 @@ body {
     text-transform: capitalize;
 }
 
-.search-form .auto-complete-result li:hover {
+.search-form .autocomplete-result li:hover {
     background-color: #3B2448;
     color: #ffffff;
 }
