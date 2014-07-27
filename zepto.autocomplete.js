@@ -12,6 +12,7 @@
             this.remoteTimeout = 3000;
         },
         autocomplete: function (options) {
+            this._clear();
             if (!this._isDataSourceDefined(options)) {
                 return;
             }
@@ -21,9 +22,7 @@
             }
             if (this._isRemote(options)) {
                 this._initRemote(options.limit, options.data);
-                return;
             }
-            this._clear();
         },
         _isDataSourceDefined: function (options) {
             return typeof options !== "undefined" &&

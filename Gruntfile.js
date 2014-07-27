@@ -3,9 +3,11 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         mocha: {
             all: {
-                src: ['test/test-zepto-autocomplete.html']
+                src: ['test/test.html']
             }, options: {
-                run: true
+                run: true,
+                log: true,
+                reporter: "Nyan"
             }
         }
     });

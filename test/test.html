@@ -1,0 +1,40 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Zepto Autocomplete Tests</title>
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css"/>
+</head>
+<body>
+<div id="mocha"></div>
+<div id="messages"></div>
+<div id="fixtures"></div>
+<script src="../node_modules/zepto/zepto.min.js"></script>
+<script src="../node_modules/mocha/mocha.js"></script>
+<script src="../node_modules/chai/chai.js"></script>
+<script src="../node_modules/sinon/lib/sinon.js"></script>
+<script src="../node_modules/sinon/lib/sinon/spy.js"></script>
+<script src="../node_modules/sinon/lib/sinon/call.js"></script>
+<script src="../node_modules/sinon/lib/sinon/behavior.js"></script>
+<script src="../node_modules/sinon/lib/sinon/stub.js"></script>
+<script src="../node_modules/sinon/lib/sinon/mock.js"></script>
+<script src="../node_modules/sinon/lib/sinon/collection.js"></script>
+<script src="../node_modules/sinon/lib/sinon/assert.js"></script>
+<script src="../node_modules/sinon/lib/sinon/sandbox.js"></script>
+<script src="../node_modules/sinon/lib/sinon/test.js"></script>
+<script src="../node_modules/sinon/lib/sinon/test_case.js"></script>
+<script src="../node_modules/sinon/lib/sinon/assert.js"></script>
+<script src="../node_modules/sinon/lib/sinon/match.js"></script>
+<script src="../zepto.autocomplete.js"></script>
+<script>
+    mocha.setup('bdd');
+    mocha.reporter('html');
+</script>
+<script src="zepto.autocomplete.test.js"></script>
+<script>
+    // Only tests run in real browser, injected script run if options.run == true
+    if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+        mocha.run();
+    }
+</script>
+</body>
+</html>
