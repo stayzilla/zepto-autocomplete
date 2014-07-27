@@ -28,6 +28,10 @@
     width: auto;
 }
 
+.auto-complete-result li:hover {
+    background-color: gray;
+}
+
 .auto-complete-result ol li:hover {
     background: #22D0EB;
 }

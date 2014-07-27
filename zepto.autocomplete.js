@@ -4,11 +4,17 @@ var ZeptoAutocomplete = {
         this.limit = limit;
         this.data = data;
         this.remoteTimeout = 3000;
+        this._setSelectionRange();
     },
     _clear: function () {
         this.limit = 2;
         this.data = '';
         this.remoteTimeout = 3000;
+    },
+    _setSelectionRange: function () {
+        $('.autocomplete-input').click(function (event) {
+            this.setSelectionRange(0, this.value.length);
+        });
     },
     autocomplete: function (options) {
         this._clear();
