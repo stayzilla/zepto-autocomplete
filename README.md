@@ -7,6 +7,7 @@ Zepto Autocomplete plugin is a micro js js library (few KBs) that allows ZeptoJS
 Datasource for the autocomplete can be a local javascript Array objecty or a remote GET request returning a JSON array. The text limit is customizable and all values can be passed on initialization. Styling for the results, can be customized by importing 3 styles.
 
 ## Examples
+### HTML element style requirements
 
 ```bash
 # HTML file containing the required DOM elements.
@@ -14,7 +15,11 @@ Datasource for the autocomplete can be a local javascript Array objecty or a rem
 
 <input type="text" class="autocomplete-input">
 <div class="autocomplete-result"></div>
+```
 
+### Autocompleting using a local datastore (JS Array)
+
+```bash
 # Initialize in javascript on page load with options.
 # Below example is for "Local Datastore"
 
@@ -25,7 +30,11 @@ Datasource for the autocomplete can be a local javascript Array objecty or a rem
       ...
       ...
     }
+```
 
+### Autocompleting using a remote datastore (JSON Array response from a URL)
+
+```bash
 # Below example is for "Remote Datastore", URL
 
     $(document).ready(function () {
