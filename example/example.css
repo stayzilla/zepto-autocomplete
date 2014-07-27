@@ -20,8 +20,8 @@ body{
     margin: 0;
 }
 .search-form {
-    padding: 5px 20%;
-    width: 60%;
+    padding: 5px 30%;
+    width: 40%;
 }
 .search-form .autocomplete-input{
     font-size: 14px;
@@ -35,8 +35,21 @@ body{
     height: 30px;
     width: 100%;
 }
+@media all and (max-width: 959px) and (min-width: 600px) {
+    .middle h1{
+        font-size: 72px;
+    }
+    .search-form {
+        padding: 5px 25%;
+        width: 50%;
+    }
+}
 @media all and (max-width: 599px) and (min-width: 320px) {
     .middle h1{
         font-size: 48px;
+    }
+    .search-form {
+        padding: 5px 20%;
+        width: 60%;
     }
 }
