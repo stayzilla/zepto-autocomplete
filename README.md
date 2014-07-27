@@ -4,12 +4,12 @@
 
 Zepto Autocomplete library allows Zepto.js users to easily plugin 'autocomplete' functionality to their text boxes, by simply adding a class and initializing the plugin on page load.
 
-Datasource for the autocomplete can be a local javascript Array objecty or a remote GET request returning a JSON array. The text limit is customizable and all values can be passed on initialization.
+Datasource for the autocomplete can be a local javascript Array objecty or a remote GET request returning a JSON array. The text limit is customizable and all values can be passed on initialization. Styling for the results, can be customized by importing 3 styles.
 
 ## Examples
 
 ```bash
-# HTML file
+# HTML file. Note : `autocomplete-input` is the expected style for the input field, that needs to auto-completed.
 <input type="text" class="autocomplete-input" placeholder="Type any 3 letters here ...">
 
 # Initialize in javascript on page load with options.
@@ -29,8 +29,9 @@ Datasource for the autocomplete can be a local javascript Array objecty or a rem
       ...
       ...
     }
-
 ```
+* Example folder contains a complete working html,js and css.
+
 ## Dependencies
 There are no hard dependencies. Running an `npm install` will install the libraries required.
 
