@@ -1,5 +1,55 @@
 var expect = chai.expect;
 describe("ZeptoAutocomplete", function () {
+    describe("keyup event binding", function () {
+        var proxySpy,bindSpy,mockSearchTextFieldSpy;
+        beforeEach(function () {
+            $ = sinon.stub(window, '$');
+            proxySpy = sinon.spy($, 'proxy');
+            bindSpy = sinon.spy();
+            mockSearchTextFieldSpy = {bind: bindSpy};
+            $.withArgs('.autocomplete-input').returns(mockSearchTextFieldSpy);
+        });
+
+        afterEach(function () {
+            $.restore();
+        });
+
+        it("should bind keyup event for localdatastore", function () {
+            var autocompleteData = ['hello', 'zepto', 'autocomplete', 'testing'];
+            var localOptions = {limit: 5, datasource: 'local', data: autocompleteData};
+
+            ZeptoAutocomplete.autocomplete(localOptions);
+
+            sinon.assert.calledOnce(proxySpy);
+            expect(proxySpy.args).to.have.length(1);
+            chai.assert.isFunction(proxySpy.args[0][0]);
+
+            sinon.assert.calledOnce(bindSpy);
+            var actualBindArgs = bindSpy.args;
+            expect(actualBindArgs).to.have.length(1);
+            expect(actualBindArgs[0]).to.have.length(2);
+            expect(actualBindArgs[0][0]).to.equal('keyup');
+            chai.assert.isFunction(actualBindArgs[0][1]);
+        });
+
+        it("should bind keyup event for remote datastore", function () {
+            var remoteOptions = {limit: 20, datasource: 'remote', data: 'someurl.json?q='};
+
+            ZeptoAutocomplete.autocomplete(remoteOptions);
+
+            sinon.assert.calledOnce(proxySpy);
+            expect(proxySpy.args).to.have.length(1);
+            chai.assert.isFunction(proxySpy.args[0][0]);
+
+            sinon.assert.calledOnce(bindSpy);
+            var actualBindArgs = bindSpy.args;
+            expect(actualBindArgs).to.have.length(1);
+            expect(actualBindArgs[0]).to.have.length(2);
+            expect(actualBindArgs[0][0]).to.equal('keyup');
+            chai.assert.isFunction(actualBindArgs[0][1]);
+        });
+    });
+
     describe("initialize options", function () {
         it("should have default values when no options passed", function () {
             $.fn.autocomplete(undefined);
