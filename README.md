@@ -26,7 +26,7 @@ Datasource for the autocomplete can be a local javascript Array objecty or a rem
       ...
     }
 
-# Below example is for "Rocal Datastore"
+# Below example is for "Remote Datastore", URL
 
     $(document).ready(function () {
       var remoteOptions = {limit: 2, datasource: 'remote', data: 'example.json?keyword='};
