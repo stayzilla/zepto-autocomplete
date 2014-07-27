@@ -1,6 +1,6 @@
 /*!
  * ZeptoAutocomplete v0.0.1
- * Sriram Narasimhan
+ * Stayzilla.com
  * MIT license
  * @preserve
  */

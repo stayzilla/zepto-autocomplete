@@ -39,5 +39,5 @@ There are no hard dependencies. Running an `npm install` will install the librar
 You will need PhantomJS. `grunt` command will run all the tests and build the distribution.
 
 ### License
-Copyright (c) 2014 Sriram Narasimhan
+Copyright (c) 2014 Stayzilla.com
 Licensed under the MIT license.
