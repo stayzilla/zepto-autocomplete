@@ -60,6 +60,22 @@ Datasource for the autocomplete can be a local javascript Array object or a remo
     }
 ```
 
+### Optional show and hide functions
+
+```bash
+# Set 'show' and 'hide' options if you want to override the default $.show() and $.hide() actions 
+# on the .autocomplete-result container.
+
+    var options = {
+      limit: 2, 
+      datasource: 'remote', 
+      data: 'example.json?keyword=', 
+      show: function(){ ... },
+      hide: function(){ ... }
+    };
+
+```
+
 ## Dependencies
 There are no hard dependencies. Running an `npm install` will install the libraries required.
 

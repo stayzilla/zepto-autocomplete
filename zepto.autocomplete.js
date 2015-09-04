@@ -5,11 +5,14 @@
  * @preserve
  */
 var ZeptoAutocomplete = {
-    init: function (limit, data, caseSensitive) {
+    init: function (limit, data, caseSensitive, showFunc, hideFunc) {
         this.limit = limit;
         this.data = data;
         this.remoteTimeout = 3000;
+        this.resultContainer = $('.autocomplete-result');
         this.caseSensitive = typeof caseSensitive !== 'undefined' ? caseSensitive : true;
+        this.showFunction = typeof showFunc == 'function' ? showFunc : function(){ resultContainer.show(); };
+        this.hideFunction = typeof hideFunc == 'function' ? hideFunc : function(){ resultContainer.hide(); };
         this._setSelectionRange();
     },
     _clear: function () {
@@ -28,11 +31,11 @@ var ZeptoAutocomplete = {
             return;
         }
         if (this._isLocal(options)) {
-            this._initLocal(options.limit, options.data, options.caseSensitive);
+            this._initLocal(options.limit, options.data, options.caseSensitive, options.show, options.hide);
             return;
         }
         if (this._isRemote(options)) {
-            this._initRemote(options.limit, options.data, options.caseSensitive);
+            this._initRemote(options.limit, options.data, options.caseSensitive, options.show, options.hide);
         }
     },
     _isDataSourceDefined: function (options) {
@@ -47,14 +50,14 @@ var ZeptoAutocomplete = {
     _isLocal: function (options) {
         return options.datasource === 'local' && typeof options.data !== "undefined" && $.isArray(options.data);
     },
-    _initLocal: function (limit, data) {
-        this.init(limit, data);
+    _initLocal: function (limit, data, caseSensitive, showFunc, hideFunc) {
+        this.init(limit, data, caseSensitive, showFunc, hideFunc);
         var searchTextField = $('.autocomplete-input');
         var _this = this;
         searchTextField.bind("keyup", $.proxy(this._handleLocalSearch, _this));
     },
-    _initRemote: function (limit, data) {
-        this.init(limit, data);
+    _initRemote: function (limit, data, caseSensitive, showFunc, hideFunc) {
+        this.init(limit, data, caseSensitive, showFunc, hideFunc);
         var searchTextField = $('.autocomplete-input');
         var _this = this;
         searchTextField.bind("keyup", $.proxy(this._handleRemoteSearch, _this));
@@ -98,25 +101,23 @@ var ZeptoAutocomplete = {
     _successHandler: function (data) {
         if (data === undefined && data.length <= 0)
             return;
-        var resultContainer = $('.autocomplete-result');
         var autocompleteHTML = "<ol>";
         $.map(data, function (listItem) {
             autocompleteHTML += "<li>" + listItem + "</li>";
         });
         autocompleteHTML += "</ol>";
-        resultContainer.html(autocompleteHTML);
+        this.resultContainer.html(autocompleteHTML);
         var _this = this;
         $('.autocomplete-result li').on('click', function (evt) {
             var selectedValue = $(this).text();
             $('.autocomplete-input').val(selectedValue);
             _this._clearResults();
         });
-        resultContainer.show();
+        this.showFunction();
     },
     _clearResults: function () {
-        var resultContainer = $('.autocomplete-result');
-        resultContainer.html('');
-        resultContainer.hide();
+        this.resultContainer.html('');
+        this.hideFunction();
     }
 };
 (function ($) {
