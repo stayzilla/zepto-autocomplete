@@ -5,10 +5,11 @@
  * @preserve
  */
 var ZeptoAutocomplete = {
-    init: function (limit, data) {
+    init: function (limit, data, caseSensitive) {
         this.limit = limit;
         this.data = data;
         this.remoteTimeout = 3000;
+        this.caseSensitive = typeof caseSensitive !== 'undefined' ? caseSensitive : true;
         this._setSelectionRange();
     },
     _clear: function () {
@@ -27,11 +28,11 @@ var ZeptoAutocomplete = {
             return;
         }
         if (this._isLocal(options)) {
-            this._initLocal(options.limit, options.data);
+            this._initLocal(options.limit, options.data, options.caseSensitive);
             return;
         }
         if (this._isRemote(options)) {
-            this._initRemote(options.limit, options.data);
+            this._initRemote(options.limit, options.data, options.caseSensitive);
         }
     },
     _isDataSourceDefined: function (options) {
@@ -68,7 +69,12 @@ var ZeptoAutocomplete = {
             return;
         }
         this._successHandler(this.data.filter(function (i) {
-            return i.indexOf(message) > -1;
+            if( !this.caseSensitive ) {
+                return i.toLowerCase().indexOf( message.toLowerCase() ) > -1;
+            } else {
+                return i.indexOf( message ) > -1;
+            }
+            
         }));
     },
     _handleRemoteSearch: function (evt) {
@@ -84,7 +90,7 @@ var ZeptoAutocomplete = {
             dataType: 'json',
             success: $.proxy(this._successHandler, this),
             error: function (err) {
-                alert('Request failed to load suggestions.');
+                console.log('Request failed to load suggestions.');
             },
             timeout: this.remoteTimeout
         });
