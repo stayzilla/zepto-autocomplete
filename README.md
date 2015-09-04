@@ -46,10 +46,11 @@ Datasource for the autocomplete can be a local javascript Array object or a remo
 ```
 * Example folder contains a complete working html,js and css.
 
-### caseSensitive option
+### Case-sensitive matching options
 
 ```bash
-# Set caseSensitive to false to enable case insensitive matching
+# Set caseSensitive to false to enable case-insensitive matching
+# Leave this option off to use the default case-sensitive matching
 
     $(document).ready(function () {
       var remoteOptions = {limit: 2, datasource: 'remote', data: 'example.json?keyword=', caseSensitive: false};
