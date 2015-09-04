@@ -46,6 +46,19 @@ Datasource for the autocomplete can be a local javascript Array object or a remo
 ```
 * Example folder contains a complete working html,js and css.
 
+### caseSensitive option
+
+```bash
+# Set caseSensitive to false to enable case insensitive matching
+
+    $(document).ready(function () {
+      var remoteOptions = {limit: 2, datasource: 'remote', data: 'example.json?keyword=', caseSensitive: false};
+      $.fn.autocomplete(remoteOptions);
+      ...
+      ...
+    }
+```
+
 ## Dependencies
 There are no hard dependencies. Running an `npm install` will install the libraries required.
 
